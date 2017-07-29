@@ -148,3 +148,94 @@ Functions
 	* These are a way to have a function declare some state, and then return a function that uses said state.
 	* It allows you to have some initalization that only gets called once while returning the inner function for further invocation.
 	* The inner function can reference variables within the outer function and even modify them.
+
+Random Stuff
+------------
+* Babel.js can be used to transpile for older browsers.
+	* Unless im going pro, I will not need this.
+
+* NPM can be used as a rudimentary build tool in addition to a package manager.
+
+ES6 Stuff
+---------
+* Use Babel.js if you want to use ES6 features on older browsers.
+
+* Use let and const over var.
+
+* You can prepend variables with "..." for spread and rest functionality.
+	* Context matters.
+
+* Arrow Functions
+	* Multiple forms of verbosity, allowing for different features.
+	* Using parenthesis for variables allows
+
+* Classes
+	* Syntatic sugar for making objects.
+	* Can declare member variables within constructors.
+	* Need to always use "this" to access member variables.
+	* Like older JS "classes", everything is public at all times.
+		* This means "getter" and "setter" methods are pointless.
+
+* Modules
+	* An attempt to standardize how to import code from other files.
+	* Needs more time to be usable across all modern platforms.
+	* Look into CommonJS for node imports.
+	* ES6 modules are planned for support eventually.
+	* Always see if there's an easy way to use ES6 modules before trying other things.
+	* Maybe use a bundler that supports ES6 imports (webpack?) for both node and browser?
+
+* Inheritance
+	* It exists...use it as needed like you would elsewhere.
+
+* Maps
+	* Seems similar to JS objects.
+	* Allows for primitive keys instead of only strings.
+	* It sounds better to use this when I really want a map (i.e. variable number of keys).
+	* Keep using objects when you need...objects.
+
+* Sets
+	* This is nice when I need it.
+	* Can be emulated with JS objects, but this is cleaner.
+
+* Weak Set/Map
+	* Only really use if memory usage is an issue.
+
+* Destructuring Assignments
+	* Sneaky way to declare multiple values from a collection or object.
+
+* Symbols
+	* Truly unique objects intended for object keys.
+	* Different symbols with the same value will not be equal.
+	* Can be used for enum constants.
+	* Can be used to uniquely identify object properties.
+	* Don't lose references to a symbol if you still need it.
+		* You can get them back...but it's ugly.
+
+* Generators
+	* Special functions that masquerade as iterators.
+	* Nothing terribly special...can't use foreach on it.
+	* The special `yield` keyword returns a value.
+		* The return value is whatever the user passes into the `next()` function.
+
+* Iterators
+	* They finally added proper iterables and foreach support!
+
+* Coroutines
+	* Sounds like a special application of generators that allows for parallel computation.
+	* Feel free to write your own framework for fun, but you can also use 3rd party tools.
+
+* Promises
+	* The new way to handle async coding.
+	* It's kinda like callbacks, but built to be less nested.
+	* See the js file for an example...easier to just read the code.
+	* There's a lot more to be thought about here.
+	* `Promise.all()` allows for easy parallel running of multiple promises.
+
+Code Quality
+------------
+* Checkout flow.js for a static type checker.
+	* So much for loose typing being a benefit of the language.
+
+* Typescript
+	* Straight up typed superset of Javascript from MS.
+	* Embrance, extend...?
