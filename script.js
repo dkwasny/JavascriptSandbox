@@ -1,14 +1,14 @@
 let canvas = document.getElementById('kwasCanvas');
 let ctx = canvas.getContext('2d');
 
-canvas.height = 1000;
-canvas.width = 1000;
+let mainDiv = document.getElementById('mainDiv');
+let header = document.getElementById('header');
 
 let items = [];
 
 let randomRgb = function() {
 	return Math.round(Math.random() * 255);
-}
+};
 
 let moveItem = function(item) {
 	let xChange = (Math.random() - 0.5) * 10;
@@ -30,8 +30,8 @@ let updateItem = function() {
 }
 
 let clickHandler = function() {
-	let x = Math.random() * 1000;
-	let y = Math.random() * 1000;
+	let x = Math.random() * canvas.width;
+	let y = Math.random() * canvas.height;
 	let r = randomRgb();
 	let g = randomRgb();
 	let b = randomRgb();
@@ -48,16 +48,16 @@ let clickHandler = function() {
 };
 
 let draw = function() {
-	ctx.clearRect(0, 0, 1000, 1000);
+	canvas.height = mainDiv.clientHeight - header.clientHeight;
+	canvas.width = mainDiv.clientWidth;
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	for(let x of items) {
 		let rgbString = `rgb(${x.r},${x.g},${x.b})`;
 		ctx.fillStyle = rgbString;
 		ctx.fillText(
 			'Move that mouse!',
 			x.x,
-			x.y,
-			1000,
-			1000
+			x.y
 		);
 	}
 };
