@@ -4,12 +4,17 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Canvas Test</title>
+		<style>
+			body, html { height: 100%; margin: 0; }
+			#mainDiv { height: 100%; margin: 0; }
+			#header { text-align: center; margin: 0 }
+		</style>
 	</head>
 	<body>
-
-		<h1>Click ME!</h1>
-		<canvas id="kwasCanvas"></canvas>
-
+		<div id="mainDiv">
+			<h1 id="header">Click ME!</h1>
+			<canvas id="kwasCanvas"></canvas>
+		</div>
 		<script src="script.js"> </script>
 	</body>
 </html>
