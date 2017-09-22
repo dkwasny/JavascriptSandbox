@@ -1,9 +1,11 @@
-export default function Engine(divId, canvasId) {
+export default function Engine(divId, canvasId, xMax, yMax) {
     this.div = document.getElementById(divId);
     this.canvas = document.getElementById(canvasId);
     this.ctx = this.canvas.getContext('2d');
     this.xRatio = 16;
     this.yRatio = 9;
+    this.xMax = xMax;
+    this.yMax = yMax;
     this.refreshMs = 16;
     this.items = [];
     this.drawLoop = drawLoopFactory(this);
@@ -47,8 +49,11 @@ let drawLoopFactory = function(engine) {
         let height = canvas.height;
         let width = canvas.width;
 
+        let xMax = engine.xMax;
+        let yMax = engine.yMax;
+
         for (let item of engine.items) {
-            item.draw(height, width, ctx);
+            item.draw(height, width, ctx, xMax, yMax);
         }
     }
 };
