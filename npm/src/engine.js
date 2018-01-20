@@ -1,4 +1,4 @@
-export default function Engine(divId, canvasId, xMax, yMax) {
+export function Engine(divId, canvasId, xMax, yMax) {
     this.div = document.getElementById(divId);
     this.canvas = document.getElementById(canvasId);
     this.ctx = this.canvas.getContext('2d');
@@ -12,6 +12,69 @@ export default function Engine(divId, canvasId, xMax, yMax) {
 
     this.start = function() {
         window.setInterval(this.drawLoop, this.refreshMs);
+    };
+
+    this.normalizeX = function(input) {
+        return input * this.canvas.width / xMax;
+    };
+    this.normalizeY = function(input) {
+        return input * this.canvas.height / yMax;
+    };
+}
+
+export function Rectangle(x, y, width, height) {
+    this.x = x;
+    this.y = y;
+    this.height = height;
+    this.width = width;
+    this.colorHex = '#c65d6d';
+    this.hide = false;
+    this.kill = false;
+    
+    this.draw = function(engine) {
+        let ctx = engine.ctx;
+        ctx.fillStyle = this.colorHex;
+        ctx.fillRect(
+            engine.normalizeX(this.x),
+            engine.normalizeY(this.y),
+            engine.normalizeX(this.width),
+            engine.normalizeY(this.height)
+        );
+    };
+}
+
+export function Grid(x, y, width, height, numColumns, numRows, lineWidth) {
+    this.x = x;
+    this.y = y;
+    this.height = height;
+    this.width = width;
+    this.numColumns = numColumns;
+    this.numRows = numRows;
+    this.lineWidth = lineWidth;
+    this.colorHex = '#c65d6d';
+    this.hide = false;
+    this.kill = false;
+
+    this.draw = function(engine) {
+        let ctx = engine.ctx;
+        let columnWidth = this.width / this.numColumns;
+        let rowHeight = this.height / this.numRows;
+
+        ctx.lineWidth = this.lineWidth;
+        ctx.beginPath();
+        for (let i = 0; i <= this.numRows; i++) {
+            let startX = engine.normalizeX(this.x);
+            let startY = engine.normalizeY(this.y + (i * rowHeight));
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(engine.normalizeX(this.x + this.width), startY);
+        }
+        for (let i = 0; i <= this.numColumns; i++) {
+            let startX = engine.normalizeX(this.x + (i * columnWidth));
+            let startY = engine.normalizeY(this.y);
+            ctx.moveTo(startX, startY);
+            ctx.lineTo(startX, engine.normalizeY(this.y + this.height));
+        }
+        ctx.stroke();
     };
 }
 
@@ -46,15 +109,19 @@ let drawLoopFactory = function(engine) {
         let ctx = engine.ctx;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        let height = canvas.height;
-        let width = canvas.width;
-
-        let xMax = engine.xMax;
-        let yMax = engine.yMax;
-
-        for (let item of engine.items) {
-            item.draw(height, width, ctx, xMax, yMax);
+        let items = engine.items;
+        for (let i = 0; i < items.length;) {
+            let curr = items[i];
+            if (curr.kill) {
+                items.splice(i, 1);
+            }
+            else {
+                if (!curr.hide) {
+                    curr.draw(engine);
+                }
+                i++;
+            }
         }
-    }
+    };
 };
 

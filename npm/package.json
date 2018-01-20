@@ -4,15 +4,16 @@
   "description": "A place for me to mess with npm",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint src/index.js",
-    "bundle": "rollup --format iife --output build/bundle.js src/index.js",
+    "lint": "eslint src",
+    "bundle": "rollup --output.format iife --output.file build/bundle.js src/index.js",
     "copy-html": "cp src/index.html build",
-    "all": "npm run lint && npm run bundle && npm run copy-html"
+    "build": "npm run bundle && npm run copy-html",
+    "all": "npm run lint && npm run build"
   },
   "author": "dkwasny",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^4.4.1",
-    "rollup": "^0.46.2"
+    "eslint": "^4.15.0",
+    "rollup": "^0.54.1"
   }
 }

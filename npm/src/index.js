@@ -1,24 +1,10 @@
-import Engine from './engine.js';
+import { Engine, Rectangle, Grid } from './engine.js';
 
 let engine = new Engine('kwasDiv', 'kwasCanvas', 100, 100);
 
-let square = {
-    x: 0,
-    y: 0,
-    height: 5,
-    width: 5,
-    colorHex: '#c65d6d',
-    draw: function(canvasHeight, canvasWidth, ctx, xMax, yMax) {
-        ctx.fillStyle = this.colorHex;
-
-        let sX = this.x * canvasWidth / xMax;
-        let sY = this.y * canvasHeight / yMax;
-        let sHeight = this.height * canvasHeight / yMax;
-        let sWidth = this.width * canvasWidth / xMax;
-
-        ctx.fillRect(sX, sY, sWidth, sHeight);
-    }
-};
+let square2 = new Rectangle(0, 0, 5, 5);
+square2.x = 1;
+let square = new Grid(0, 0, 10, 10, 3, 3, 1);
 engine.items.push(square);
 
 let handleKeyPress = function(event) {
@@ -38,6 +24,12 @@ let handleKeyPress = function(event) {
         break;
     case 'a':
         setRatio();
+        break;
+    case 'h':
+        square.hide = !square.hide;
+        break;
+    case 'k':
+        square.kill = true;
         break;
     }
 };
